@@ -24,6 +24,11 @@ class MyUserManager(BaseUserManager):
         )
 	user.folder = user.email.split("@")[0]
 	user.database = "db.sqlite3"
+	#create dir
+	if not os.path.exists(user.folder):
+		os.makedirs(user.database)
+	#update databases at multi_app databases (store config too)
+        #python manage.py migrate multi_polls --database=user.folder+"/"+usr.database	
         user.set_password(password)
         user.save(using=self._db)
         return user
